@@ -11,9 +11,10 @@
   
   services.upower.enable = true;
   environment.systemPackages = with pkgs; [
-    kitty rofi wl-clipboard
+    kitty rofi wl-clipboard neovim kdePackages.dolphin
     zip unzip
-    gcc bun ripgrep fd python3 go
+    gcc bun ripgrep fd go just
+    python3 uv
     home-manager
   ];
 
