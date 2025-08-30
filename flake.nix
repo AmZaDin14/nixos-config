@@ -2,20 +2,21 @@
   description = "AmZaDin14's Personal System Configuration";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.05";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     catppuccin.url = "github:catppuccin/nix";
     ashell.url = "github:MalpenZibo/ashell";
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs"; };
     home-manager = {
-        url = "github:nix-community/home-manager/release-25.05";
-        inputs.nixpkgs.follows = "nixpkgs";
-    };
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs"; };
+    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+    nvf.url = "github:notashelf/nvf";
   };
 
   outputs = { self, nixpkgs, home-manager, zen-browser, catppuccin,
-              ashell, ... }@inputs: let
+              ashell, nvf, ... }@inputs: let
       system = "x86_64-linux";
       homeStateVersion = "25.05";
       user = "amri";
@@ -37,7 +38,7 @@
       homeConfigurations.${user} = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.${system};
         extraSpecialArgs = { inherit inputs homeStateVersion user; };
-        modules = [ ./home-manager/home.nix catppuccin.homeModules.catppuccin ];
+        modules = [ ./home-manager/home.nix catppuccin.homeModules.catppuccin nvf.homeManagerModules.default ];
       };
   };
 }

@@ -19,7 +19,7 @@
       ];
 
       "exec-once" = [
-        "ashell"
+        "ashell --config-path ../../../.config/ashell.toml"
         "hyprctl dispatch workspace 1"
       ];
 

@@ -1,5 +1,5 @@
 alias se = sudoedit
-alias rnix = sudo nixos-rebuild switch
+alias rnix = sudo nixos-rebuild switch --flake /home/amri/nix
 
 let carapace_completer = {|spans|
   carapace $spans.0 nushell ...$spans | from json }
