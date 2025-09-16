@@ -32,8 +32,8 @@
         gaps_in = 2;
         gaps_out = 2;
         border_size = 2;
-        "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
-        "col.inactive_border" = "rgba(595959aa)";
+        # "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
+        # "col.inactive_border" = "rgba(595959aa)";
         resize_on_border = true;
         allow_tearing = false;
         layout = "dwindle";
@@ -49,7 +49,6 @@
           enabled = true;
           range = 4;
           render_power = 3;
-          color = "rgba(1a1a1aee)";
         };
 
         blur = {
@@ -114,8 +113,6 @@
 
         touchpad = { natural_scroll = true; };
       };
-
-      gestures = { workspace_swipe = false; };
 
       device = [
         { name = "epic-mouse-v1"; sensitivity = -0.5; }

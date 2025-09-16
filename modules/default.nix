@@ -12,6 +12,7 @@
     ./locale.nix
     ./network.nix
     ./podman.nix
+    # ./stylix.nix
     ./user.nix
     ./home-manager.nix
   ];

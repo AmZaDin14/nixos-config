@@ -4,6 +4,9 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     catppuccin.url = "github:catppuccin/nix";
+    stylix = {
+      url = "github:nix-community/stylix";
+      inputs.nixpkgs.follows = "nixpkgs"; };
     ashell.url = "github:MalpenZibo/ashell";
     zen-browser = {
       url = "github:0xc000022070/zen-browser-flake";
@@ -15,7 +18,7 @@
     nvf.url = "github:notashelf/nvf";
   };
 
-  outputs = { self, nixpkgs, home-manager, zen-browser, catppuccin,
+  outputs = { self, nixpkgs, home-manager, zen-browser, stylix, catppuccin,
               ashell, nvf, ... }@inputs: let
       system = "x86_64-linux";
       homeStateVersion = "25.05";
@@ -27,7 +30,11 @@
       makeSystem = { hostname, stateVersion }: nixpkgs.lib.nixosSystem {
         system = system;
         specialArgs = { inherit inputs stateVersion hostname user; };
-        modules = [ ./hosts/${hostname}/configuration.nix catppuccin.nixosModules.catppuccin ];
+        modules = [
+          # stylix.nixosModules.stylix
+          catppuccin.nixosModules.catppuccin
+          ./hosts/${hostname}/configuration.nix
+        ];
       };
     in {
       nixosConfigurations = nixpkgs.lib.foldl' (configs: host:
@@ -38,7 +45,11 @@
       homeConfigurations.${user} = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.${system};
         extraSpecialArgs = { inherit inputs homeStateVersion user; };
-        modules = [ ./home-manager/home.nix catppuccin.homeModules.catppuccin nvf.homeManagerModules.default ];
+        modules = [
+          stylix.homeModules.stylix
+          nvf.homeManagerModules.default 
+          ./home-manager/home.nix
+        ];
       };
   };
 }
